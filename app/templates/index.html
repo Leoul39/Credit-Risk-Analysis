@@ -43,7 +43,7 @@
 </head>
 <body>
     <h2>Fraud Detection Model</h2>
-    <form action="/predict" method="POST">
+    <form method="POST" action="/predict">
         <label for="ProviderId">ProviderId (0-5)</label>
         <select id="ProviderId" name="ProviderId" required>
             {% for i in range(6) %}
