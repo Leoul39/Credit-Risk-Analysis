@@ -13,21 +13,25 @@ def Home():
 
 @app.route("/predict", methods = ["GET","POST"])
 def predict():
-    prediction = None
-    if request.method == 'POST':
-        # Retrieve form data from each field
-        provider_id = int(request.form['ProviderId'])                
-        product_id = int(request.form['ProductId'])                  
-        product_category = int(request.form['ProductCategory'])      
-        channel_id = int(request.form['ChannelId'])
-        amount = float(request.form['Amount'])                         
-        recency = int(request.form['Recency'])                       
-        frequency = int(request.form['Frequency'])                   
-        features = np.array([provider_id,product_id,product_category,channel_id,amount,recency,frequency]).reshape(1,-1)
-        #features[:, 4] = scaler.transform(features[:, 4].reshape(-1, 1)).flatten()
-        prediction = model.predict(features)[0]
-    print("Features array:", features)
-    return render_template("index.html",prediction=prediction)
+    try:
+        prediction = None
+        if request.method == 'POST':
+            # Retrieve form data from each field
+            provider_id = int(request.form['ProviderId'])                
+            product_id = int(request.form['ProductId'])                  
+            product_category = int(request.form['ProductCategory'])      
+            channel_id = int(request.form['ChannelId'])
+            amount = float(request.form['Amount'])                         
+            recency = int(request.form['Recency'])                       
+            frequency = int(request.form['Frequency'])                   
+            features = np.array([provider_id,product_id,product_category,channel_id,amount,recency,frequency]).reshape(1,-1)
+            features[:, 4] = scaler.transform(features[:, 4].reshape(-1, 1)).flatten()
+            prediction = model.predict(features)[0]
+        print("Prediction:", prediction)
+        return render_template("index.html",prediction=prediction)
+    except Exception as e:
+        print("Error:", str(e))
+        return render_template("index.html", prediction="Error occurred. Check logs.")
 
 if __name__ == "__main__":
     app.run(debug=True)
