@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Project Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Fraud Detection Model</h2>
+    <form method="POST" action="/predict">
+        <label for="ProviderId">ProviderId (0-5)</label>
+        <select id="ProviderId" name="ProviderId" required>
+            {% for i in range(6) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="ProductId">ProductId (0-22)</label>
+        <select id="ProductId" name="ProductId" required>
+            {% for i in range(23) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="ProductCategory">ProductCategory (0-8)</label>
+        <select id="ProductCategory" name="ProductCategory" required>
+            {% for i in range(9) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="ChannelId">ChannelId (0-3)</label>
+        <select id="ChannelId" name="ChannelId" required>
+            {% for i in range(4) %}
+                <option value="{{ i }}">{{ i }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="Amount">Amount</label>
+        <input type="number" id="Amount" name="Amount" required>
+
+        <label for="Recency">Recency</label>
+        <input type="number" id="Recency" name="Recency" required>
+
+        <label for="Frequency">Frequency</label>
+        <input type="number" id="Frequency" name="Frequency" required>
+
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
